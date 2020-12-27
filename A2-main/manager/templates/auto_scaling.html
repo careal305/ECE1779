@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+	<div class="content-section">
+		<form method="POST" action="">
+			{{ form.hidden_tag() }}
+			<fieldset class="form-group">
+				<legend class="border-bottom mb-4">Set your auto-scaling policy!</legend>
+				<div class="form-group">
+					{{ form.grow_threshold.label(class="form-control-label")}}
+					{{ form.grow_threshold(class="form-control form-control-lg")}}
+				</div>
+				<div class="form-group">
+					{{ form.shrink_threshold.label(class="form-control-label")}}
+					{{ form.shrink_threshold(class="form-control form-control-lg")}}
+				</div>
+				<div class="form-group">
+					{{ form.expand_ratio.label(class="form-control-label")}}
+					{{ form.expand_ratio(class="form-control form-control-lg")}}
+				</div>
+				<div class="form-group">
+					{{ form.shrink_ratio.label(class="form-control-label")}}
+					{{ form.shrink_ratio(class="form-control form-control-lg")}}
+				</div>
+			</fieldset>
+			<div class="form-group">
+				{{ form.submit(class="btn btn-outline-info")}}
+			</div>
+		</form>
+	</div>
+{% endblock content%}

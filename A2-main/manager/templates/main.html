@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block content %}
+	<div class="media-body">
+		<div class="article-metadata">
+			<h2>Welcome, Manager!</h2>
+		</div>
+			<p>You can manage workers and all the data here!</p>
+	</div>
+		<table>
+			<td>
+				<form class="btn" action="{{url_for('add_worker')}}" method="post">
+					<input type="submit" value="Add Worker">
+				</form>
+			</td>
+			<td>
+				<form class="btn" action="{{url_for('auto_scaling')}}" method="post">
+					<input type="submit" value="Set Auto-Scaling Policy">
+				</form>
+			</td>
+			<td>
+				<form class="btn" action="#" method="post" onsubmit='return confirm("Are you sure?")'>
+					<input type="submit" value="Delete All Data">
+				</form>
+			</td>
+			<td>
+				<form class="btn" action="#" method="post" onsubmit='return confirm("Are you sure?")'>
+					<input type="submit" value="Stop the Manager">
+				</form>
+			</td>
+
+		</table>
+
+		<table>
+				<a style="padding left 10px" href="http://ece1779a2-1322249347.us-east-1.elb.amazonaws.com:5000">Load balanced user-app entry URL</a>
+		</table>
+
+
+	<table>
+		<thead>
+			<th><center>ID</center></th>
+			<th><center>Port</center></th>
+			<th><center>Status</center></th>
+		</thead>
+
+		{% for instance in target_instances %}
+			<tr>
+				<td><center>{{ instance['Target']['Id'] }}</center></td>
+				<td><center>{{ instance['Target']['Port'] }}</center></td>
+				<td><center>{{ instance['TargetHealth']['State'] }}</center></td>
+			</tr>
+				<td><center>
+					<form action="{{url_for('ec2_details',id=instance['Target']['Id'])}}" method='get'>
+						<input type='submit' value='Details' />
+					</form>
+				</center></td>
+				<td><center>
+					<form action="{{url_for('remove_worker',id=instance['Target']['Id'])}}" method='post', onsubmit='return confirm("Are you sure?")'>
+						<input type='submit' value='Remove Worker' />
+					</form>
+				</center></td>
+		{% endfor %}
+	</table>
+
+	<div class="article-content">
+		<h5>Worker Numbers</h5>
+		<div id="worker_plot" style="width:450px;height:250px"></div>
+			<script>
+
+				var options = {
+					series: {
+						lines: { show: true },
+						points: { show: true }
+					}
+				};
+
+				$.plot($("#worker_plot"), [ {{ num_worker_stats }} ] , options);
+			</script>
+	</div>
+{% endblock content %}
