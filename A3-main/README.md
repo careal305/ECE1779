@@ -1,3 +1,8 @@
+Contributor (Equal Contribution):
+Dongqing Zhu
+Yao Wang
+XinYi Yuan
+
 # A3
 
 ece1779 a3 restaurant review app : https://03rs8d4pzk.execute-api.us-east-1.amazonaws.com/production
@@ -6,7 +11,7 @@ email sender: ece1779a3@hotmail.com password: Ece1779pass
 Settings
 1. one user can only submit one comment for each restaurtant
 2. one owner can only have one restaurant
-
+ 
 Finished requirements
 1. login panel(connect to DynamoDB) Completed
 2. user/owner register route Completed
@@ -48,6 +53,5 @@ Important information :
       $ zappa tail production # check log of the deployments
         ...
       
-
 !!Please DO NOT DELETE the first row(owner0, user0, admin) in the three tables(dynamodb), the reason is that if we delete all the items in a table, only the keys exist, the other items will disappear. So I create 3 default rows to keep all the items in case we click the delete users/restaurants in admin page.
 
